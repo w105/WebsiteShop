@@ -3,3 +3,6 @@ from.models import PlantModel
 
 
 admin.site.register(PlantModel)
+
+
+

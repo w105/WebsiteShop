@@ -38,6 +38,13 @@
     </div>
   </section>
 
+{% for n in PlantModel %}
+<div class="alert alert-warning mt-2">
+    <h3>{{ n.title }}</h3>
+    <p>{{ n.data }}</p>
+</div>
+{% endfor %}
+
 
     <div>
    <footer class="pt-3 mt-4 text-muted border-top">

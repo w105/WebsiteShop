@@ -2,8 +2,12 @@ from django.shortcuts import render
 from .models import PlantModel
 
 
-def about(request):
-    return render(request, 'mainform/about.html')
+# class AboutView(TemplateView):
+#  template_name = "about.html"
+
+
+# def about(request):
+#     return render(request, 'mainform/about.html')
 
 
 def register(request):

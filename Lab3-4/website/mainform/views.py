@@ -1,21 +1,18 @@
 from django.shortcuts import render
 from .models import PlantModel
+from django.views.generic import TemplateView
 
 
-# class AboutView(TemplateView):
-#  template_name = "about.html"
+class About(TemplateView):
+    template_name = 'mainform/about.html'
 
 
-# def about(request):
-#     return render(request, 'mainform/about.html')
+class Register(TemplateView):
+    template_name = 'mainform/register.html'
 
 
-def register(request):
-    return render(request, 'mainform/register.html')
-
-
-def login(request):
-    return render(request, 'mainform/login.html')
+class Login(TemplateView):
+    template_name = 'mainform/login.html'
 
 
 def index(request):

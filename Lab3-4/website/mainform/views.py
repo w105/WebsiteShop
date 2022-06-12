@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from .models import PlantModel
 from django.views.generic import TemplateView
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class About(TemplateView):
     template_name = 'mainform/about.html'
 
 
-class Register(TemplateView):
-    template_name = 'mainform/register.html'
+class RegisterView(TemplateView):
+    template_name = "main/Register.html"
 
 
 class Login(TemplateView):

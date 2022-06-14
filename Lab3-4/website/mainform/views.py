@@ -1,17 +1,12 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from .models import PlantModel
 from django.views.generic import TemplateView
-# from django.contrib.auth.models import User
-# from django.urls import reverse
-# from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 
 class About(TemplateView):
     template_name = 'mainform/about.html'
-
-
-class RegisterView(TemplateView):
-    template_name = "main/Register.html"
 
 
 class Login(TemplateView):
@@ -20,9 +15,21 @@ class Login(TemplateView):
 
 def index(request):
     plants = PlantModel.objects.order_by('-id')
-    return render(request, 'mainform/index.html', {'PlantModel': plants})
+    return render(request, 'mainform/index.html', {'title': 'Главная', 'PlantModel': plants})
 
 
-# def dispatch(self, request, *args, **kwargs):
-#     if request.method == 'POST':
+class Register(TemplateView):
+    template_name = "mainform/register.html"
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            password2 = request.POST.get('password2')
+
+            if password == password2:
+                User.objects.create_user(username, email, password)
+                return redirect(reverse('index'))
+
+        return render(request, self.template_name)

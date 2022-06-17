@@ -3,6 +3,7 @@ from django.urls import reverse
 from .models import PlantModel
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 
 class About(TemplateView):
@@ -11,6 +12,19 @@ class About(TemplateView):
 
 class Login(TemplateView):
     template_name = 'mainform/login.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        context = {}
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                context['error'] = "Неверный логин или пароль"
+        return render(request, self.template_name, context)
 
 
 def index(request):

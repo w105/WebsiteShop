@@ -25,23 +25,25 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Вход в аккаунт</h2>
 
-              <form>
+              <form method="post">
+
+                {% csrf_token %}
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example3cg">Логин</label>
+                  <label class="form-label" for="form3Example1cg">Логин</label>
+                  <input type="text" name="username" id="form3Example1cg" class="form-control form-control-lg"/>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Пароль</label>
+                  <label class="form-label" for="form3Example4cdg">Пароль</label>
+                  <input type="password" name="password"  id="form3Example4cdg" class="form-control form-control-lg"/>
+
                 </div>
 
 
 
                 <div class="d-flex justify-content-center">
-                  <button type="button"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Войти</button>
+                  <input type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" value="Войти">
                 </div>
                   <p class="text-center text-muted mt-5 mb-0"  >Ещё не зарегистрированы? <a href="register"
                     class="fw-bold text-body"><u>Создать аккаунт</u></a></p>

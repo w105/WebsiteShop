@@ -12,18 +12,35 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-4 border-bottom">
 <h5 class="align-items-center col-md-3 mb-2 px-3 mb-md-0 font-weight font-weight-normal">Раслинка</h5>
 
-      <ul class="nav col-12 col-md-auto mb-3 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 link-dark">Магазин</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Корзина</a></li>
-        <li><a href="about" class="nav-link px-2 link-dark">Про нас</a></li>
-      </ul>
+    {% if request.user.is_authenticated %}
+
+        <ul class="nav col-12 col-md-auto mb-3 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 link-dark">Магазин</a></li>
+            <li><a href="add" class="nav-link px-2 link-dark">Добавить товар</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Корзина</a></li>
+            <li><a href="about" class="nav-link px-2 link-dark">Про нас</a></li>
+         </ul>
+          {% else %}
+
+          <ul class="nav col-12 col-md-auto mb-3 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 link-dark">Магазин</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Корзина</a></li>
+            <li><a href="about" class="nav-link px-2 link-dark">Про нас</a></li>
+         </ul>
+          {% endif %}
 
       <div class="col-md-3 text-end">
+
+          {% if request.user.is_authenticated %}
+            <li class="last"> {{ user.username }} | <a href="logout" class="px-2 link-dark">Выйти</a></li>
+          {% else %}
+
         <button type="button" class="btn btn-outline-primary me-2" onclick="window.location.href='/login'">Войти</button>
         <button  type="button" class="btn btn-primary" onclick="window.location.href='/register'">Зарегестрироваться</button>
-      </div>
-    </header>
+           {% endif %}
 
+      </div>
+</header>
 
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
@@ -45,7 +62,7 @@
 
       {% for n in PlantModel %}
 <div class="col">
-    <img>{{ n.image }}</img>
+
           <div class="card shadow-sm">
 
             <svg class="bd-placeholder-img card-img-top" width="100%" height="225"  role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -54,7 +71,11 @@
                 <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ n.title }}</text>
             </svg>
 
-            <div class="card-body">
+
+              <div class="card-body">
+
+<!--                  <img src = {{n.image}} alt="123" />-->
+
               <p class="card-text">{{ n.data }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">

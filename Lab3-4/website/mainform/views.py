@@ -3,11 +3,20 @@ from django.urls import reverse
 from .models import PlantModel
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+
+
+def logout_user(self):
+    logout(self)
+    return redirect('index')
 
 
 class About(TemplateView):
     template_name = 'mainform/about.html'
+
+
+class Addproduct(TemplateView):
+    template_name = 'mainform/addproduct.html'
 
 
 class Login(TemplateView):
@@ -47,3 +56,4 @@ class Register(TemplateView):
                 return redirect(reverse('index'))
 
         return render(request, self.template_name)
+

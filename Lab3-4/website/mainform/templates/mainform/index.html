@@ -10,26 +10,23 @@
 </head>
 <body>
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-4 border-bottom">
-<h5 class="align-items-center col-md-3 mb-2 px-3 mb-md-0 font-weight font-weight-normal">Раслинка</h5>
+<h5 style = "margin-left: 10px" class="align-items-center col-md-3 mb-2 px-3 mb-md-0 font-weight font-weight-normal">Интернет-магазин "Раслинка"</h5>
 
     {% if request.user.is_authenticated %}
-
         <ul class="nav col-12 col-md-auto mb-3 justify-content-center mb-md-0">
             <li><a href="/" class="nav-link px-2 link-dark">Магазин</a></li>
-            <li><a href="add" class="nav-link px-2 link-dark">Добавить товар</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Корзина</a></li>
+            <li><a href="shopcart" class="nav-link px-2 link-dark">Корзина</a></li>
             <li><a href="about" class="nav-link px-2 link-dark">Про нас</a></li>
          </ul>
           {% else %}
 
           <ul class="nav col-12 col-md-auto mb-3 justify-content-center mb-md-0">
             <li><a href="/" class="nav-link px-2 link-dark">Магазин</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Корзина</a></li>
             <li><a href="about" class="nav-link px-2 link-dark">Про нас</a></li>
          </ul>
           {% endif %}
 
-      <div class="col-md-3 text-end">
+      <div style = "margin-right: 10px" class="col-md-3 text-end">
 
           {% if request.user.is_authenticated %}
             <li class="last"> {{ user.username }} | <a href="logout" class="px-2 link-dark">Выйти</a></li>
@@ -41,56 +38,59 @@
 
       </div>
 </header>
-
-  <section class="py-5 text-center container">
+    <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light">Здравствуй, садовник!</h1>
+
+          {% if request.user.is_authenticated %}
+        <p class="lead text-muted">Вы авторизованы, приятных покупок.
+               Интернет-магазин «Раслинка» – это множество наименований однолетних и многолетних цветов, а также декоративных и плодовых деревьев и кустарников!</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                      <a href="#top" class="btn btn-primary my-2">Перейти к товарам</a>
         </p>
+                 {% else %}
+
+           <p class="lead text-muted">Вы не авторизованы, войдите в аккаунт.
+               Интернет-магазин «Раслинка» – это множество наименований однолетних и многолетних цветов, а также декоративных и плодовых деревьев и кустарников!</p>
+        <p>
+                    <a href="login" class="btn btn-primary my-2">Войти в аккаунт</a>
+        </p>
+                {% endif %}
       </div>
     </div>
-  </section>
+    </section>
 
+    <div align="center" class="album py-5 bg-light">
+        <div class="container ">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="top">
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-<div class="container">
-
-      {% for n in PlantModel %}
-<div class="col">
-
+        {% for n in PlantModel %}
+        <div class="col">
           <div class="card shadow-sm">
-
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"  role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ n.title }}</text>
-            </svg>
-
-
-              <div class="card-body">
-
-<!--                  <img src = {{n.image}} alt="123" />-->
-
-              <p class="card-text">{{ n.data }}</p>
+            <img src ="{{n.img}}" alt = "{{n.title}}" title = "Фото - {{n.title}}" class="bd-placeholder-img card-img-top" width="100%" height="225"  aria-label="Placeholder: Фото - {{n.title}}">
+            <div class="card-body">
+                <p class="card-text"><b>{{n.title}}</b></p>
+              <p class="card-text">{{n.data}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    {% if request.user.is_authenticated %}
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/shopcart'">Добавить в корзину</button>
+                    {% else %}
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/login'">Войти</button>
+                    {% endif %}
                 </div>
-                <small class="text-muted">9 mins</small>
+                <b class="text-secondary">{{n.cost}}</b>
               </div>
             </div>
           </div>
         </div>
-            {% endfor %}
-        </div>
-    </div>
 
+         {% endfor %}
+
+                </div>
+            </div>
+        </div>
     <div>
         <footer class="pt-3 mt-4 text-muted border-top">
       ООО "Раслинка"© 2022

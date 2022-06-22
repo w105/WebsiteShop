@@ -15,8 +15,8 @@ class About(TemplateView):
     template_name = 'mainform/about.html'
 
 
-class Addproduct(TemplateView):
-    template_name = 'mainform/addproduct.html'
+class Shopcart(TemplateView):
+    template_name = 'mainform/shopcart.html'
 
 
 class Login(TemplateView):
@@ -56,4 +56,3 @@ class Register(TemplateView):
                 return redirect(reverse('index'))
 
         return render(request, self.template_name)
-
